@@ -1,45 +1,36 @@
 import copy
 import random
-# Consider using the modules imported above.
 
+# Hat contains set of balls per colour, added to a list called contents.
 class Hat:
 
   contents = []
 
-  def __init__(self, **kwargs):
+  def __init__(self, **colours):
     
     self.contents = []
-    self.kwargs = kwargs
+    self.colours = colours
 
-    for k, v in self.kwargs.items():
+    for k, v in self.colours.items():
       for z in range(v):
         self.contents.append(k)   
 
-
+  
+  # Draws n balls from a hat at random, without replacement
   def draw(self, n):
     
     output = []
    
     if len(self.contents) >= n:
-      for i in range(n):
-        ball = random.choice(self.contents)
-        output.append(ball)
-        self.contents.remove(ball)
-        #self.contents.pop(self.contents.index(ball))
-      return output
-    else:
-      return self.contents
-
-
-    self.drawnum = n
-    if len(self.contents) >= self.drawnum:
-      out = random.sample(self.contents, self.drawnum)
+      out = random.sample(self.contents, n)
       for x in out:
         self.contents.remove(x)
       return out
+    else:
+      return self.contents
       
 
-
+# Calculates a rough probability of drawing the expected balls out of a hat
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
   output = []
